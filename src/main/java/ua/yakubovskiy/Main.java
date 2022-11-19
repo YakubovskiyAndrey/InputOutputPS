@@ -13,22 +13,26 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String testHtml = "<person name=\"Іван\" " +
-                "surname=\"Котляревський\" " +
+       /* String testHtml = "<persons> <person name=\"Іван\" " +
+                "surname = \"Котляревський\" " +
                 "birthDate=\"09.09.1769\" />";
         Pattern attValueDoubleQuoteOnly = Pattern.compile("([\\w:\\-]+)(\\s*=\\s*(\"(.*?)\"))");
 
         Matcher m = attValueDoubleQuoteOnly.matcher(testHtml);
 
+        String name = "";
+        String surname = "";
         while (m.find()) {
             if(m.group(0).startsWith("n")) {
-                System.out.println("name: " + m.group(0));
+                name = m.group(0);
             } else if (m.group(0).startsWith("s")) {
-                System.out.println("surname: " + m.group(0));
+                surname = m.group(0);
             }
         }
+        System.out.println(name+" "+surname);*/
 
-        //task1();
+
+       task1();
     }
 
     public static void task1(){
