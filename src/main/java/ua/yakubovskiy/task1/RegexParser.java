@@ -32,20 +32,24 @@ public class RegexParser {
                     String surnameTag = "";
                     String stringsStr = strings.toString();
                     while (matcher.find()) {
-                        if(!name.isEmpty() && !surname.isEmpty()){
-                            stringsStr = stringsStr.replaceAll(surnameTag+"\\s*?", "");
-                            stringsStr = stringsStr.replaceAll(name, name+" "+surname);
-                            name = "";
-                            surname = "";
-                        }
                         if("name".equals(matcher.group(1))) {
                             name = matcher.group(4);
                         } else if ("surname".equals(matcher.group(1))) {
                             surname = matcher.group(4);
                             surnameTag = matcher.group(0);
                         }
+                        if(!name.isEmpty() && !surname.isEmpty()){
+                            stringsStr = stringsStr.replaceAll(surnameTag, "");
+                            stringsStr = stringsStr.replaceAll(name, name+" "+surname);
+                            name = "";
+                            surname = "";
+                        }
                     }
-                    stringBuilder.append(stringsStr.replaceAll("\\s*$", "")).append("\n");
+                    stringsStr = stringsStr.replaceAll("[\\t ]{2,}", " ");
+                    stringsStr = stringsStr.replaceAll("\\s*$", "");
+                    /*if(stringsStr.trim().startsWith("<"))
+                        stringsStr = stringsStr.replaceAll("\\n", "\n  ");*/
+                    stringBuilder.append(stringsStr).append("\n");
                     strings.setLength(0);
                 }
             }
