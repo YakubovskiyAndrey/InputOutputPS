@@ -1,7 +1,6 @@
 package ua.yakubovskiy;
 
 import ua.yakubovskiy.task1.RegexParser;
-import java.util.Scanner;
 
 public class Main {
 
@@ -10,13 +9,8 @@ public class Main {
     }
 
     public static void task1(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("print urlInputXML");
-        String urlInputXML = scanner.nextLine();
-        System.out.println("print urlOutputXML");
-        String urlOutputXML = scanner.nextLine();
-
-        RegexParser parser = new RegexParser(urlInputXML, urlOutputXML);
+        RegexParser parser = new RegexParser("task1/input.xml", "output.xml");
         parser.read();
     }
+
 }

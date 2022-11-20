@@ -1,6 +1,14 @@
 package ua.yakubovskiy.task1;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +27,7 @@ public class RegexParser {
 
     public void read(){
         StringBuilder builder = new StringBuilder();
-        try (FileInputStream inputStream = new FileInputStream(urlInput);
+        try (FileInputStream inputStream = new FileInputStream(getFileFromResources(urlInput));
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             while (reader.ready())
                 parse(reader.readLine(), builder);
@@ -46,8 +54,7 @@ public class RegexParser {
                     surnameTag = matcher.group(0);
                 }
                 if(!name.isEmpty() && !surname.isEmpty()){
-                    tag = tag.replaceAll(
-                            tag.contains(surnameTag + " ")? surnameTag + " " : surnameTag, "");
+                    tag = tag.replaceAll(" " + surnameTag, "");
                     tag = tag.replaceAll(name, name+" "+surname);
                     name = "";
                     surname = "";
@@ -65,6 +72,13 @@ public class RegexParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private File getFileFromResources(String fileName) {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        URL resource = classLoader.getResource(fileName);
+        if (resource == null) throw new IllegalArgumentException("file is not found!");
+        return new File(resource.getFile());
     }
 
 }
