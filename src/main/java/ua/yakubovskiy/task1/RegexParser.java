@@ -18,6 +18,8 @@ public class RegexParser {
 
     private final String urlOutput;
 
+    private final Pattern pattern = Pattern.compile("([\\w:\\-]+)(\\s*=\\s*(\"(.*?)\"))");
+
     private final StringBuilder stringBuilder = new StringBuilder();
 
     public RegexParser(String urlInput, String urlOutput) {
@@ -40,8 +42,7 @@ public class RegexParser {
     private void parse(String lineXML, StringBuilder builder){
         builder.append(lineXML).append("\n");
         if(lineXML.contains("/")){
-            Matcher matcher = Pattern.compile("([\\w:\\-]+)(\\s*=\\s*(\"(.*?)\"))")
-                    .matcher(builder.toString());
+            Matcher matcher = pattern.matcher(builder.toString());
             String name = "";
             String surname = "";
             String surnameTag = "";
