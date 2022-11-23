@@ -1,14 +1,12 @@
 package ua.yakubovskiy.task1;
 
-import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.FileOutputStream;
-import java.net.URL;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +18,7 @@ public class RegexParser {
 
     private final Pattern pattern = Pattern.compile("([\\w:\\-]+)(\\s*=\\s*(\"(.*?)\"))");
 
-    private final StringBuilder stringBuilder = new StringBuilder();
+    private final StringBuilder resultStrings = new StringBuilder();
 
     public RegexParser(String urlInput, String urlOutput) {
         this.urlInput = urlInput;
@@ -29,14 +27,14 @@ public class RegexParser {
 
     public void read(){
         StringBuilder builder = new StringBuilder();
-        try (FileInputStream inputStream = new FileInputStream(getFileFromResources(urlInput));
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                             Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(urlInput))))) {
             while (reader.ready())
                 parse(reader.readLine(), builder);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(!stringBuilder.isEmpty()) write();
+        if(!resultStrings.isEmpty()) write();
     }
 
     private void parse(String lineXML, StringBuilder builder){
@@ -61,7 +59,7 @@ public class RegexParser {
                     surname = "";
                 }
             }
-            stringBuilder.append(tag.replaceAll("\\s*$", "")).append("\n");
+            resultStrings.append(tag.replaceAll("\\s*$", "")).append("\n");
             builder.setLength(0);
         }
     }
@@ -69,17 +67,10 @@ public class RegexParser {
     private void write(){
         try (FileOutputStream fileOutputStream = new FileOutputStream(urlOutput);
              BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream))) {
-            writer.write(stringBuilder.toString());
+            writer.write(resultStrings.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private File getFileFromResources(String fileName) {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        URL resource = classLoader.getResource(fileName);
-        if (resource == null) throw new IllegalArgumentException("file is not found!");
-        return new File(resource.getFile());
     }
 
 }
