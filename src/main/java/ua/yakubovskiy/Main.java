@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -30,18 +31,19 @@ public class Main {
     }
 
     public static void task2(){
-       /* StaxParser parser = new StaxParser();
-        List<TrafficViolation> trafficViolationList;*/
+        StaxParser parser = new StaxParser();
+        List<TrafficViolation> trafficViolationList = new ArrayList<>();
         try (InputStream in = ClassLoader.getSystemResourceAsStream("task2");
              BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-            while (br.ready()) System.out.println(br.readLine());
-           /* trafficViolationList = parser.parse(paths);
-            if(trafficViolationList != null) {
+            while (br.ready()) {
+                parser.parse("task2/" + br.readLine().trim(), trafficViolationList);
+            }
+            if(!trafficViolationList.isEmpty()) {
                 JacksonStreamingWrite jacksonStreamingWrite = new JacksonStreamingWrite();
                 jacksonStreamingWrite.write(trafficViolationList);
-            }*/
-        /*} catch (XMLStreamException e) {
-            e.printStackTrace();*/
+            }
+        } catch (XMLStreamException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

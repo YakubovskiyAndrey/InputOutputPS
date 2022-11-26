@@ -7,13 +7,11 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StaxParser {
 
-    public List<TrafficViolation> parse(String urlInput) throws XMLStreamException {
-        List<TrafficViolation> trafficViolationList = null;
+    public void parse(String urlInput, List<TrafficViolation> trafficViolationList) throws XMLStreamException {
         TrafficViolation currViolation = null;
         String tagContent = null;
         XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -23,16 +21,15 @@ public class StaxParser {
 
         while(reader.hasNext()){
             int event = reader.next();
-
             switch(event){
                 case XMLStreamConstants.START_ELEMENT:
                     if ("violation".equals(reader.getLocalName())){
                         currViolation = new TrafficViolation();
                         currViolation.setId(Integer.parseInt(reader.getAttributeValue(0)));
                     }
-                    if("violations".equals(reader.getLocalName())){
+                    /*if("violations".equals(reader.getLocalName())){
                         trafficViolationList = new ArrayList<>();
-                    }
+                    }*/
                     break;
 
                 case XMLStreamConstants.CHARACTERS:
@@ -42,9 +39,7 @@ public class StaxParser {
                 case XMLStreamConstants.END_ELEMENT:
                     switch(reader.getLocalName()){
                         case "violation":
-                            if (trafficViolationList != null) {
                                 trafficViolationList.add(currViolation);
-                            }
                             break;
                         case "date_time":
                             if (currViolation != null && tagContent != null) {
@@ -76,15 +71,13 @@ public class StaxParser {
                     }
                     break;
 
-                case XMLStreamConstants.START_DOCUMENT:
+               /* case XMLStreamConstants.START_DOCUMENT:
                     trafficViolationList = new ArrayList<>();
-                    break;
+                    break;*/
                 default:
                     break;
             }
-
         }
-       return trafficViolationList;
     }
 
 }
