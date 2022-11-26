@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<violations>
+    <violation id = "3">
+        <date_time>2020-05-05T15:39:03</date_time>
+        <first_name>Jack</first_name>
+        <last_name>Doe</last_name>
+        <type>NOT_USING_SEAT_BELT</type>
+        <fine_amount>301.04</fine_amount>
+    </violation>
+    <violation id = "4">
+        <date_time>2022-05-05T15:33:13</date_time>
+        <first_name>Mike</first_name>
+        <last_name>Johnson</last_name>
+        <type>UNDER_ALCOHOL_INFLUENCE</type>
+        <fine_amount>666.65</fine_amount>
+    </violation>
+</violations>

@@ -5,8 +5,16 @@ import ua.yakubovskiy.task2.entity.TrafficViolation;
 import ua.yakubovskiy.task2.parsers.JacksonStreamingWrite;
 import ua.yakubovskiy.task2.parsers.StaxParser;
 import javax.xml.stream.XMLStreamException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -22,15 +30,19 @@ public class Main {
     }
 
     public static void task2(){
-        StaxParser parser = new StaxParser();
-        List<TrafficViolation> trafficViolationList;
-        try {
-            trafficViolationList = parser.parse("task2/inputViolation.xml");
+       /* StaxParser parser = new StaxParser();
+        List<TrafficViolation> trafficViolationList;*/
+        try (InputStream in = ClassLoader.getSystemResourceAsStream("task2");
+             BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            while (br.ready()) System.out.println(br.readLine());
+           /* trafficViolationList = parser.parse(paths);
             if(trafficViolationList != null) {
                 JacksonStreamingWrite jacksonStreamingWrite = new JacksonStreamingWrite();
                 jacksonStreamingWrite.write(trafficViolationList);
-            }
-        } catch (XMLStreamException e) {
+            }*/
+        /*} catch (XMLStreamException e) {
+            e.printStackTrace();*/
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
