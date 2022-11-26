@@ -18,11 +18,12 @@ public class StaxParser {
         this.urlInput = urlInput;
     }
 
-    public void parse() throws XMLStreamException {
+    public List<TrafficViolation> parse() throws XMLStreamException {
         List<TrafficViolation> trafficViolationList = null;
         TrafficViolation currViolation = null;
         String tagContent = null;
         XMLInputFactory factory = XMLInputFactory.newInstance();
+        factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
         XMLStreamReader reader =
                 factory.createXMLStreamReader(ClassLoader.getSystemResourceAsStream(urlInput));
 
@@ -52,9 +53,9 @@ public class StaxParser {
                             }
                             break;
                         case "date_time":
-                            /*if (currViolation != null && tagContent != null) {
+                            if (currViolation != null && tagContent != null) {
                                 currViolation.setDateTime(LocalDateTime.parse(tagContent));
-                            }*/
+                            }
                             break;
                         case "first_name":
                             if (currViolation != null && tagContent != null) {
@@ -89,10 +90,7 @@ public class StaxParser {
             }
 
         }
-
-        //Print the employee list populated from XML
-        if(trafficViolationList != null)
-            trafficViolationList.forEach(trafficViolation -> System.out.println(trafficViolation.toString()));
-
+       return trafficViolationList;
     }
+
 }

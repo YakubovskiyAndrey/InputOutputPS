@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <violations>
     <violation id = "1">
-        <date_time>2020-05-05 15:39:03</date_time>
+        <date_time>2020-05-05T15:39:03</date_time>
         <first_name>Ivan</first_name>
-        <last_name>Ivanov"</last_name>
+        <last_name>Ivanov</last_name>
         <type>SPEEDING</type>
-        <fine_amount>340.00</fine_amount>
+        <fine_amount>340.04</fine_amount>
+    </violation>
+    <violation id = "2">
+        <date_time>2022-05-05T15:33:13</date_time>
+        <first_name>Petr</first_name>
+        <last_name>Good</last_name>
+        <type>INVALID_LICENSE</type>
+        <fine_amount>223.65</fine_amount>
     </violation>
 </violations>
