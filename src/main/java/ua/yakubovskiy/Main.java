@@ -22,16 +22,16 @@ public class Main {
     }
 
     public static void task2(){
-        StaxParser parser = new StaxParser("task2/inputViolation.xml");
+        StaxParser parser = new StaxParser();
         List<TrafficViolation> trafficViolationList;
         try {
-            trafficViolationList = parser.parse();
+            trafficViolationList = parser.parse("task2/inputViolation.xml");
+            if(trafficViolationList != null) {
+                JacksonStreamingWrite jacksonStreamingWrite = new JacksonStreamingWrite();
+                jacksonStreamingWrite.write(trafficViolationList);
+            }
         } catch (XMLStreamException e) {
-            throw new RuntimeException(e);
-        }
-        if(trafficViolationList != null) {
-            JacksonStreamingWrite jacksonStreamingWrite = new JacksonStreamingWrite();
-            jacksonStreamingWrite.write(trafficViolationList);
+            e.printStackTrace();
         }
     }
 

@@ -1,11 +1,16 @@
 package ua.yakubovskiy.task2.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 
+@JsonAutoDetect
 public class TrafficViolation {
 
     private int id;
 
+    @JsonIgnore
     private LocalDateTime dateTime;
 
     private String firstName;

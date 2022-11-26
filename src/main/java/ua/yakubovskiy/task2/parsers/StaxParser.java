@@ -12,13 +12,7 @@ import java.util.List;
 
 public class StaxParser {
 
-    private final String urlInput;
-
-    public StaxParser(String urlInput) {
-        this.urlInput = urlInput;
-    }
-
-    public List<TrafficViolation> parse() throws XMLStreamException {
+    public List<TrafficViolation> parse(String urlInput) throws XMLStreamException {
         List<TrafficViolation> trafficViolationList = null;
         TrafficViolation currViolation = null;
         String tagContent = null;
