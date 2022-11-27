@@ -28,7 +28,7 @@ public class RegexParser {
     public void read(){
         StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                             Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(urlInput))))) {
+                Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(urlInput))))) {
             while (reader.ready())
                 parse(reader.readLine(), builder);
         } catch (IOException e) {

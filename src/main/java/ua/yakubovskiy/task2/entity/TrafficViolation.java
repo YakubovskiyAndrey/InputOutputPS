@@ -2,39 +2,25 @@ package ua.yakubovskiy.task2.entity;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 @JsonAutoDetect
 public class TrafficViolation {
 
-    private int id;
-
     @JsonIgnore
-    private LocalDateTime dateTime;
-
-    private String firstName;
-
-    private String lastName;
-
-    private double fineAmount;
+    private int id;
 
     private TypeViolation type;
 
+    private double fineAmount;
+
+    public TrafficViolation(int id, TypeViolation type, double fineAmount) {
+        this.id = id;
+        this.type = type;
+        this.fineAmount = fineAmount;
+    }
 
     public TrafficViolation() {
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public double getFineAmount() {
@@ -45,18 +31,6 @@ public class TrafficViolation {
         return type;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public void setFineAmount(double fineAmount) {
         this.fineAmount = fineAmount;
     }
@@ -65,23 +39,21 @@ public class TrafficViolation {
         this.type = type;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
 
     @Override
-    public String toString() {
-        return "TrafficViolation{" +
-                "id=" + id +
-                ", dateTime=" + dateTime +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", fineAmount=" + fineAmount +
-                ", type=" + type +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TrafficViolation that = (TrafficViolation) o;
+        return id == that.id && Double.compare(that.fineAmount, fineAmount) == 0 && type == that.type;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fineAmount, type);
+    }
+
 }
