@@ -9,16 +9,15 @@ import java.util.List;
 
 public class JacksonStreamingWrite {
 
-    public void write(List<TrafficViolation> listTrafficViolations, String urlOutput){
+    private final ObjectMapper jsonMapper = new ObjectMapper();
 
-        ObjectMapper jsonMapper = new ObjectMapper();
+    public void write(List<TrafficViolation> listTrafficViolations, String urlOutput){
         jsonMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try{
             jsonMapper.writeValue(new File(urlOutput), listTrafficViolations);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 }

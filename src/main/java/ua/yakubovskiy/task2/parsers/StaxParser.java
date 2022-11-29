@@ -10,10 +10,11 @@ import java.util.List;
 
 public class StaxParser {
 
+    private final XMLInputFactory factory = XMLInputFactory.newInstance();
+
     public void parse(String urlInput, List<TrafficViolation> trafficViolationList) throws XMLStreamException {
         TrafficViolation currViolation = null;
         String tagContent = null;
-        XMLInputFactory factory = XMLInputFactory.newInstance();
         factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
         XMLStreamReader reader =
                 factory.createXMLStreamReader(ClassLoader.getSystemResourceAsStream(urlInput));
