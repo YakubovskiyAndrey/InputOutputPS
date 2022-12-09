@@ -7,7 +7,9 @@ public class Main {
 
     public static void main(String[] args) {
        // task1();
+        long mB = System.currentTimeMillis();
         task2();
+        System.out.println("time: " + (System.currentTimeMillis() - mB) + " ms.");
     }
 
     public static void task1() {
