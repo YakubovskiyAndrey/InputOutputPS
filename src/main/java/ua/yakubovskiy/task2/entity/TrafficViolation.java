@@ -7,15 +7,11 @@ import java.util.Objects;
 @JsonAutoDetect
 public class TrafficViolation {
 
-    @JsonIgnore
-    private int id;
-
     private TypeViolation type;
 
     private double fineAmount;
 
-    public TrafficViolation(int id, TypeViolation type, double fineAmount) {
-        this.id = id;
+    public TrafficViolation(TypeViolation type, double fineAmount) {
         this.type = type;
         this.fineAmount = fineAmount;
     }
@@ -39,21 +35,17 @@ public class TrafficViolation {
         this.type = type;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TrafficViolation that = (TrafficViolation) o;
-        return id == that.id && Double.compare(that.fineAmount, fineAmount) == 0 && type == that.type;
+        return Double.compare(that.fineAmount, fineAmount) == 0 && type == that.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fineAmount, type);
+        return Objects.hash(type, fineAmount);
     }
-
 }
